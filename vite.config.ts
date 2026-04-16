@@ -106,13 +106,10 @@ export default ({ mode }: { mode: string }) => {
   const env = loadEnv(mode, process.cwd());
   return defineConfig({
     plugins: [react(), cloudflare(), watchDependenciesPlugin(), reloadTriggerPlugin()],
-    build: {
-      minify: true,
-      sourcemap: "inline", // Use inline source maps for better error reporting
-      rollupOptions: {
-        output: {
-          sourcemapExcludeSources: false, // Include original source in source maps
-        },
+     build: {
+    ssr: true,
+    sourcemap: false,
+      },
       },
     },
     customLogger: env.VITE_LOGGER_TYPE === 'json' ? customLogger : undefined,
